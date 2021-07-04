@@ -79,7 +79,17 @@ var fight = function(enemyInfo){
 
         //player prompt to fight or skip battle
         var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
+        
+        //converts all answers to lowercase
+        var promptFight = promptFight.toLowerCase();
 
+        //checks if valid answer has been input
+        var fightOrSkip = function () {
+            if (promptFight === "" || promptFight === null){
+                alert("You need to provide a valid answer! Please try again.");
+                return fightOrSkip();
+            }
+        }
         //if player choses to fight
         if (promptFight === "fight" || promptFight === "FIGHT"){
             //generate random damage based on player's attack power
