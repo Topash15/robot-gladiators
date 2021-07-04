@@ -1,3 +1,10 @@
+// function to generate a random numeric value
+var randomNumber = function (min, max) {
+    var value = Math.floor(Math.random()* (max - min + 1)+ min);
+
+    return value;
+}
+
 //Player variables
 var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
@@ -9,8 +16,9 @@ var playerMoney = 10;
 
 //Enemy variables
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
-var enemyHealth = 50;
+var enemyHealth = randomNumber(40, 60);
 var enemyAttack = 12;
+
 
 var fight = function(enemyName){
     //repeat and execute as long as the enemy-robot is alive
@@ -21,8 +29,11 @@ var fight = function(enemyName){
 
         //if player choses to fight
         if (promptFight === "fight" || promptFight === "FIGHT"){
+            //generate random damage based on player's attack power
+            var damage = randomNumber(playerAttack - 3, playerAttack);
+
             //Subtract the value of 'playerAttack' from the value of 'enemyHealth' and use that result to update the value in the 'enemyHealth' variable
-            enemyHealth -= playerAttack;
+            enemyHealth = Math.max(0, enemyHealth - damage);
             //Log a resulting message to the console so we know that it worked
             console.log(
                 playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
@@ -37,8 +48,10 @@ var fight = function(enemyName){
             else{
                 window.alert(enemyName + " still has " + enemyHealth + " health left.");
             }
+            //generate random damage value based on enemy's attack power
+            var damage = randomNumber(enemyAttack - 3, enemyAttack);
             //Subtract the value of 'enemyAttack' from the value of 'playerHealth' and use that result to update the value in the 'playerHealth' variable
-            playerHealth -= enemyAttack;
+            playerHealth = Math.max(0, playerHealth- enemyAttack);
             //Log a resulting message to the console so we know that it worked
             console.log(
                 enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
@@ -64,7 +77,7 @@ var fight = function(enemyName){
                 window.alert(playerName + " has chosen to skip the fight. Goodbye!");
 
                 //subtract money for skipping
-                playerMoney -= 10;
+                playerMoney =Math.max(0, playerMoney - 10);
                 console.log("playerMoney", playerMoney);
                 break;
             } else if (confirmSkip && playerMoney < 10){
@@ -188,4 +201,3 @@ var startGame = function(){
 
 //start game when the page loads
 startGame();
-
