@@ -136,19 +136,19 @@ var fight = function(enemyInfo){
             var confirmSkip = window.confirm("Are you sure that you'd like to quit?")
 
             //if yes(true), leave fight
-            if (confirmSkip && playerInfo.attack >= 10){
+            if (confirmSkip && playerInfo.money >= 10){
                 window.alert(playerInfo.name + " has chosen to skip the fight. Goodbye!");
 
                 //subtract money for skipping
-                playerInfo.attack =Math.max(0, playerInfo.attack - 10);
-                console.log("playerInfo.attack", playerInfo.attack);
+                playerInfo.money =Math.max(0, playerInfo.money - 10);
+                console.log("playerInfo.money", playerInfo.money);
                 break;
-            } else if (confirmSkip && playerInfo.attack < 10){
+            } else if (confirmSkip && playerInfo.money < 10){
                 alert("You do not have enough money to skip. You must fight!");
-                fight();
+                fight(enemyInfo);
             } else{
                 //if no, ask question by running fight() again
-                fight();
+                fight(enemyInfo);
             }
         } else {
             window.alert("You need to choose a valid option. Try again!");
@@ -181,23 +181,21 @@ var endGame = function(){
 //shop function
 var shop = function () {
     //ask player what they'd like to do
-    var shopOptionPrompt = prompt("Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice.");
+    var shopOptionPrompt = prompt("Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter 1 to refill, 2 to upgrade, or 3 to leave.");
+    var shopOptionPrompt = parseInt(shopOptionPrompt);
 
     //shop options and outcomes
     switch (shopOptionPrompt) {
         //refills health
-        case "REFILL": //new case
-        case "refill":
+        case 1:
             playerInfo.refillHealth();
             break;
         //upgrades attack
-        case "UPGRADE": //new case
-        case "upgrade":
+        case 2:
             playerInfo.upgradeAttack();
             break;
         //leaves shop
-        case "LEAVE": //new case
-        case "leave" :
+        case 3:
             alert("Leaving the store.");
 
             //do nothing and end function
