@@ -5,9 +5,21 @@ var randomNumber = function (min, max) {
     return value;
 }
 
+//function to set name
+var getPlayerName = function () {
+    var name = "";
+
+    while (name === "" || name === null){
+        prompt("What is your robot's name?");
+    }
+    console.log("Your robot's name is "+ name);
+    return name;
+};
+debugger;
+
 //player information
 var playerInfo = {
-    name: prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health : 100,
     attack : 10,
     money : 10,
@@ -202,6 +214,7 @@ var startGame = function(){
         if (playerInfo.health > 0) {
             //tell player what round they are in
             alert("Welcome to Robot Gladiators! Round " + ( i + 1 ));
+            debugger;
         }
         else{
             alert("You have lost your robot in battle! Game Over!");
