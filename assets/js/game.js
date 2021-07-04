@@ -10,12 +10,11 @@ var getPlayerName = function () {
     var name = "";
 
     while (name === "" || name === null){
-        prompt("What is your robot's name?");
+        name=prompt("What is your robot's name?");
     }
     console.log("Your robot's name is "+ name);
     return name;
 };
-debugger;
 
 //player information
 var playerInfo = {
@@ -73,10 +72,10 @@ var enemyInfo = [
 ];
 
 //fight function
-var fight = function(enemy){
-    console.log(enemy)
+var fight = function(enemyInfo){
+    console.log(enemyInfo)
     //repeat and execute as long as the enemy-robot is alive
-    while (enemy.health > 0 && playerInfo.health > 0) {
+    while (enemyInfo.health > 0 && playerInfo.health > 0) {
 
         //player prompt to fight or skip battle
         var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
@@ -86,29 +85,29 @@ var fight = function(enemy){
             //generate random damage based on player's attack power
             var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
 
-            //Subtract the value of 'playerInfo.attack' from the value of 'enemy.health' and use that result to update the value in the 'enemy.health' variable
-            enemy.health = Math.max(0, enemy.health - damage);
+            //Subtract the value of 'playerInfo.attack' from the value of 'enemyInfo.health' and use that result to update the value in the 'enemyInfo.health' variable
+            enemyInfo.health = Math.max(0, enemyInfo.health - damage);
             //Log a resulting message to the console so we know that it worked
             console.log(
-                playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining."
+                playerInfo.name + " attacked " + enemyInfo.name + ". " + enemyInfo.name + " now has " + enemyInfo.health + " health remaining."
                 );
             // check enemy health
-            if (enemy.health <= 0){
-                window.alert(enemy.name + " has died!");
+            if (enemyInfo.health <= 0){
+                window.alert(enemyInfo.name + " has died!");
                 //end loop since enemy is dead
                 break;
             }
             //if enemy still has health
             else{
-                window.alert(enemy.name + " still has " + enemy.health + " health left.");
+                window.alert(enemyInfo.name + " still has " + enemyInfo.health + " health left.");
             }
             //generate random damage value based on enemy's attack power
-            var damage = randomNumber(enemy.attack - 3, enemy.attack);
-            //Subtract the value of 'enemy.attack' from the value of 'playerInfo.health' and use that result to update the value in the 'playerInfo.health' variable
-            playerInfo.health = Math.max(0, playerInfo.health- enemy.attack);
+            var damage = randomNumber(enemyInfo.attack - 3, enemyInfo.attack);
+            //Subtract the value of 'enemyInfo.attack' from the value of 'playerInfo.health' and use that result to update the value in the 'playerInfo.health' variable
+            playerInfo.health = Math.max(0, playerInfo.health- enemyInfo.attack);
             //Log a resulting message to the console so we know that it worked
             console.log(
-                enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining."
+                enemyInfo.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining."
                 );
             //check player health
             if (playerInfo.health <= 0){
@@ -214,14 +213,13 @@ var startGame = function(){
         if (playerInfo.health > 0) {
             //tell player what round they are in
             alert("Welcome to Robot Gladiators! Round " + ( i + 1 ));
-            debugger;
         }
         else{
             alert("You have lost your robot in battle! Game Over!");
             break;
         }
         var pickedEnemyObj = enemyInfo[i];
-        //set enemy.health back to 50
+        //set enemyInfo.health back to 50
         pickedEnemyObj.health = randomNumber(40, 60);
         //call fight function with enemy robot
         fight(pickedEnemyObj);
